@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DTApp.api.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DTApp.api.Controllers
 {
     // AZ 11/5/2018 http://localhost:5000/api/Values
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -28,6 +30,7 @@ namespace DTApp.api.Controllers
     }
 
     // GET api/values/5
+    [AllowAnonymous]
     [HttpGet("{id}")]
         public async Task<IActionResult> GetValues(int id){
             var value =  await _context.Values.FirstOrDefaultAsync(x => x.id == id);
