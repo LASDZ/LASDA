@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DTApp.api.Controllers
 {
     // AZ 11/5/2018 http://localhost:5000/api/Values
-    [Authorize]
+ //   [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -21,7 +21,8 @@ namespace DTApp.api.Controllers
        {
             _context = context;
        }
-       
+
+    [AllowAnonymous]  
     // GET api/values
     [HttpGet]
     public async Task<IActionResult> GetValues(){
@@ -35,7 +36,6 @@ namespace DTApp.api.Controllers
         public async Task<IActionResult> GetValues(int id){
             var value =  await _context.Values.FirstOrDefaultAsync(x => x.id == id);
             return Ok(value);
-
         }
 
         // POST api/values

@@ -36,10 +36,10 @@ namespace DTApp.api
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString ("DefaultConnection")));
             //AZ 11/7/2018 added 
             services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+     /*       services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
                         .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
@@ -48,7 +48,7 @@ namespace DTApp.api
                     };
                 
                  } );
-          
+          */
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
