@@ -30,13 +30,16 @@ namespace DTApp.api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            
+             //AZ 11/5/2018
+            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString ("DefaultConnection")));
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //AZ 11/6/2018
             services.AddCors();
-            //AZ 11/5/2018
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString ("DefaultConnection")));
             //AZ 11/7/2018 added 
             services.AddScoped<IAuthRepository, AuthRepository>();
-     /*       services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                    options.TokenValidationParameters = new TokenValidationParameters
                    {
@@ -48,8 +51,8 @@ namespace DTApp.api
                     };
                 
                  } );
-          */
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+         
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

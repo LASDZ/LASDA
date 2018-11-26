@@ -13,15 +13,15 @@ namespace DTApp.api.Data
         {
             _context = context;
         } 
-        public async Task<User> Login(string username, string password)
+        public async Task<User>Login(string username, string password)
         {
              var user = await  _context.User.FirstOrDefaultAsync( x => x.UserName == username);
 
            if (user == null )
                 return null;
 
-        //    if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
-         //        return null;
+            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                return null;
 
             return user;
         }
@@ -29,16 +29,14 @@ namespace DTApp.api.Data
         public async Task<User> Register(User user, string password)
         {
             byte[] passwordHash, passwordSalt;
-         //   passwordSalt = null;
-         //   passwordHash = null;
-            
-           // CreatePasswordHash(password, passwordHash, passwordSalt);
+                     
+           CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
-          //    user.PasswordHash = passwordHash;
-          //    user.PasswordSalt = passwordSalt;
+              user.PasswordHash = passwordHash;
+              user.PasswordSalt = passwordSalt;
         
-          //  user.PasswordHash = passwordHash;
-         //   user.PasswordSalt = passwordSalt;
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
 
              using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
@@ -52,14 +50,14 @@ namespace DTApp.api.Data
             return user;
         }
               
-      //   private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-     //   {
-      //      using (var hmac = new System.Security.Cryptography.HMACSHA512())
-      //      {
-      //          passwordSalt = hmac.Key;
-      //          passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-     //       }
-      //   }
+         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+         }
         
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt) 
         {
