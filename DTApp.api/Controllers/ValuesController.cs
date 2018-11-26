@@ -33,7 +33,7 @@ namespace DTApp.api.Controllers
     // GET api/values/5
     [AllowAnonymous]
     [HttpGet("{id}")]
-        public async Task<IActionResult> GetValues(int id){
+        public async Task<IActionResult> GetValues(int id) {
             var value =  await _context.Values.FirstOrDefaultAsync(x => x.id == id);
             return Ok(value);
         }
