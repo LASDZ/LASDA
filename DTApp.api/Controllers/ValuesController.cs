@@ -24,6 +24,7 @@ namespace DTApp.api.Controllers
 
  
     // GET api/values
+    [AllowAnonymous]  //11/27/2018 added for testing
     [HttpGet]
     public async Task<IActionResult> GetValues(){
         var values = await _context.Values.ToListAsync();

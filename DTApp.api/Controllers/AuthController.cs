@@ -42,7 +42,7 @@ namespace DTApp.api.Controllers
                 UserName = userForRegisterDto.UserName
             };
 
-            var createdUser = await _repo.Register(userToCreate, password: userForRegisterDto.Password);
+            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
             return StatusCode(201);
 
